@@ -9,17 +9,22 @@
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .background {
             background-image: url('8.jpg');
             background-size: cover;
             background-position: center;
-            height: 100%;
+            height: 750px;
+            width: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             padding: 20px;
+            box-sizing: border-box;
         }
         .header, .footer {
             display: flex;
@@ -32,13 +37,17 @@
             padding: 10px;
             text-align: center;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
+            flex-grow: 1;
+            margin: 5px;
         }
         .main-content {
             text-align: center;
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border: 1px solid #000;
+            width: calc(100% - 40px);
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -48,9 +57,6 @@
             <button onclick="showMessage()">Баланс TON</button>
             <button onclick="showMessage()">Название игры</button>
             <button onclick="showMessage()">Баланс токена проекта</button>
-        </div>
-        <div class="main-content">
-            <h1>Щенок</h1>
         </div>
         <div class="footer">
             <button onclick="showMessage()">Магазин</button>
