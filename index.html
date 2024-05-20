@@ -1,90 +1,2705 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/style.min.css">
+
+    <title>$mASS Game</title>
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="images/coin.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/coin.png" type="image/x-icon">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Roboto:ital,wght@0,400;0,700&amp;display=swap" rel="stylesheet">
+
     <style>
-        body, html {
+        .main__wrapper {
+            min-height: 550px;
+            max-height: 1000px;
+            min-width: 370px;
+            max-width: 425px;
+        }
+        .main__bg {
+            margin: 0 auto;
+            min-width: 370px;
+            max-width: 450px;
+            min-height: 550px;
+            max-height: 1000px;
+            left: 50%;
+            -webkit-transform: translate(-50%, 0);
+            -ms-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+            background: #d98a5f !important;
+        }
+        .auto-btn { height: 25px !important; opacity: 0.92; }
+        .preloader {
+            width: 100%;
             height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .background {
-            background-image: url('8.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 750px;
-            width: 500px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
+            -webkit-box-sizing: border-box;
             box-sizing: border-box;
-        }
-        .header, .footer {
+            -webkit-appearance: none;
+            outline: 0;
+            position: fixed;
+            left: 0%;
+            top: 0%;
+            right: 0%;
+            bottom: 0%;
+            z-index: 999;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            justify-content: space-around;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            background: #642F29;
+        }
+
+        .preloader-counter {
+            color: #FFF0C6;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .gap-5 {
+            gap: 5px;
+        }
+
+        .loader {
+            height: 5px;
             width: 100%;
+            top: 0;
+            position: absolute;
         }
-        .header button, .footer button {
-            background: #f0f0f0;
-            border: 2px solid #000;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 14px;
-            flex-grow: 1;
-            margin: 5px;
-            box-shadow: 2px 2px 0 #000;
-            transition: transform 0.1s, box-shadow 0.1s;
+
+        .loader__bar {
+            position: relative;
+            height: 5px;
+            background-color: #FFF0C6;
+            -webkit-animation-name: loader-animation;
+            animation-name: loader-animation;
+            -webkit-animation-duration: 4s;
+            animation-duration: 4s;
+            -webkit-animation-iteration-count: forwards;
+            animation-iteration-count: forwards;
+            -webkit-animation-timing-function: ease-in-out;
+            animation-timing-function: ease-in-out
         }
-        .header button:active, .footer button:active {
-            transform: translate(2px, 2px);
-            box-shadow: 0 0 0 #000;
+
+        @-webkit-keyframes loader-animation {
+            0% {
+                width: 0%
+            }
+
+            49% {
+                width: 100%;
+                left: 0
+            }
+
+            50% {
+                left: 100%
+            }
+
+            100% {
+                left: 0;
+                width: 100%
+            }
         }
-        .main-content {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            border: 1px solid #000;
-            margin-bottom: 20px;
-        }
-        .title {
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid #000;
-            padding: 10px;
-            font-size: 18px;
-            text-align: center;
-            width: 100%;
-            margin-bottom: 20px;
+
+        @keyframes loader-animation {
+            0% {
+                width: 0%
+            }
+
+            49% {
+                width: 100%;
+                left: 0
+            }
+
+            50% {
+                left: 100%
+            }
+
+            100% {
+                left: 0;
+                width: 100%
+            }
         }
     </style>
+
+    <script src="js/telegram-web-app.js"></script>
 </head>
+
 <body>
-    <div class="background">
-        <div class="header">
-            <button onclick="showMessage()">Баланс TON</button>
-            <div class="title">Dog TON</div>
-            <button onclick="showMessage()">Баланс токена проекта</button>
+
+<div class="preloader">
+    <div class="loader">
+        <div class="loader__bar"></div>
+    </div>
+
+    <div class="preloader__inner">
+        <div class="cat flex flex-col aic jcc">
+            <div class="cat__img img">
+                <img src="images/cat.svg" alt="">
+            </div>
+            <div class="cat__bg img flex jcc">
+                <img src="images/bg.svg" alt="">
+            </div>
         </div>
-        <div class="footer">
-            <button onclick="showMessage()">Магазин</button>
-            <button onclick="showMessage()">Мой профиль</button>
-            <button onclick="showMessage()">Инфо</button>
-            <button onclick="showMessage()">Мои рефералы</button>
-            <button onclick="showMessage()">Топ</button>
-            <button onclick="showMessage()">Колесо фортуны</button>
+
+        <div class="preloader-counter flex aic gap-20">
+            <div class="preloader-counter__txt">Communication with server</div>
+            <div class="flex aic gap-5">
+                <div class="preloader-counter__num">80</div>
+                <div class="preloader-counter__proc">%</div>
+            </div>
         </div>
     </div>
-    <script>
-        function showMessage() {
-            alert('Функционал в разработке');
+</div>
+
+<div class="main">
+    <div class="main__bg">
+        <div id="game" class="main-game"></div>
+    </div>
+
+    <div class="main__wrapper container" style="display: none;">
+
+        <header class="main__header header">
+
+            <div class="header__top h-stat grid col-2">
+                <div class="h-stat__left-side h-stat__side">
+                    <div class="h-stat__bg img">
+                        <img srcset="images/h-stat--bg%402x.png 2x" src="images/h-stat--bg.png" alt="">
+                    </div>
+
+                    <div class="h-stat__inner">
+                        <button type="button" class="btn-null h-stat__btn">
+                            <div class="ico img"><img src="images/toncoin%402x.svg" alt=""></div>
+                            <div class="val white-color" id="ton-balance">0</div>
+                            <div class="ico-plus img"><img src="images/arrow.svg" alt=""></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="h-stat__right-side h-stat__side">
+                    <div class="h-stat__bg img">
+                        <img srcset="images/h-stat--bg%402x.png 2x" src="images/h-stat--bg.png" alt="">
+                    </div>
+
+                    <div class="h-stat__inner">
+                        <button type="button" class="btn-null h-stat__btn jcfe" data-toggle="modal" data-animation="bounce" data-target=".modal--token">
+                            <div class="ico img"><img src="images/mass_mini.svg" style="height: 28px; width: 28px;" alt=""></div>
+                            <div class="val white-color" id="cate-balance">0</div>
+                            <div class="ico-plus img"><img src="images/arrow.svg" alt=""></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header__middle h-info">
+                <div class="h-info__bg img">
+                    <img srcset="images/h-info--bg%402x.png 2x" src="images/h-info--bg.png" alt="">
+                </div>
+
+                <div class="rank">
+                    <div class="rank__img img">
+                        <img srcset="images/status_2_emerald%402x.png 2x" src="images/status_2_emerald.png" alt="">
+                    </div>
+                    <div class="rank__name gradient-txt medium-txt gradient-silver">PHASE</div>
+                </div>
+
+                <div class="h-info__inner">
+                    <button type="button" class="btn-null h-info__btn">
+                        <div class="ico img"><img src="images/chicken.svg" alt=""></div>
+                        <div class="progress progress-satiety">
+                            <div class="txt white-color">Hunger</div>
+                            <progress min="0" max="100" value="0" id="food-progress"></progress>
+                        </div>
+                        <div class="ico-plus img"><img src="images/plus.svg" alt=""></div>
+                    </button>
+
+                    <div class="h-info__line"><img src="images/h-line.svg" alt=""></div>
+
+                    <button type="button" class="btn-null h-info__btn">
+                        <div class="ico img"><img src="images/heart.svg" alt=""></div>
+                        <div class="progress progress-happiness">
+                            <div class="txt white-color">Happy</div>
+                            <progress min="0" max="100" value="100" id="happiness-progress"></progress>
+                        </div>
+                        <div class="ico-plus img"><img src="images/plus.svg" alt=""></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="header__bottom flex jcc">
+                <button type="button" class="primary-btn auto-btn">
+                    <div class="auto-btn__txt">Auto</div>
+                    <div class="auto-btn__img">
+                        <div class="auto-btn__ico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+                                <path d="M22 2.9853V0.985296C22 0.0852962 20.9 -0.314704 20.3 0.285296L18.1 2.4853C16.4 1.2853 14.3 0.585296 12 0.585296C8.20001 0.585296 4.80001 2.5853 3.10001 4.9853C2.70001 5.6853 3.20001 6.5853 4.00001 6.5853C4.30001 6.5853 4.60001 6.3853 4.80001 6.0853C6.10001 4.3853 8.40001 3.5853 11 3.5853C12.8 3.5853 14.5 3.9853 15.8 4.7853L13.7 6.8853C13.1 7.4853 13.5 8.5853 14.4 8.5853H16.4H21C21.6 8.5853 22 8.1853 22 7.5853V2.9853Z" fill="white"></path>
+                                <path d="M18.7 12.5853C18.3 12.5853 18 12.7853 17.8 13.0853C16.6 14.7853 14.3 15.5853 11.7 15.5853C9.7 15.5853 7.8 15.0853 6.6 14.0853L8.4 12.2853C8.9 11.6853 8.5 10.5853 7.6 10.5853H5.6H1C0.4 10.5853 0 10.9853 0 11.5853V16.1853V18.1853C0 19.0853 1.1 19.4853 1.7 18.8853L4.1 16.4853C5.8 17.7853 8.1 18.5853 10.6 18.5853C14.5 18.5853 17.8 16.5853 19.5 14.0853C20 13.4853 19.5 12.5853 18.7 12.5853Z" fill="white"></path>
+                            </svg>
+                        </div>
+
+                        <div class="auto-btn__disabled-ico"><img src="images/disabled.svg" alt=""></div>
+                    </div>
+                </button>
+            </div>
+        </header>
+
+        <main class="main__body"></main>
+
+        <div class="main__menu">
+            <nav class="menu">
+                <div class="menu__bg img">
+                    <img srcset="images/menu%402x.png 2x" src="images/menu.png" alt="">
+                </div>
+
+                <ul class="menu__list">
+                    <li class="menu__item">
+                        <a class="menu__link">
+                            <img src="images/menu_ico_queue.png" style="image-rendering: pixelated;" alt="">
+                            Market
+                            <div class="pulse pulse__market" style="display: none;"></div>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a data-toggle="modal" data-animation="bounce" data-target=".modal--boost" class="menu__link">
+                            <img src="images/menu_ico2.png" style="image-rendering: pixelated;" alt="">
+                            Info
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="/" class="menu__link">
+                            <img src="images/menu_ico3.png" style="image-rendering: pixelated;" alt="">
+                            Home
+                            <div class="m-val" id="foods-progress" style="display: none;">
+                                <div class="m-val__bg img">
+                                    <img src="images/m-val.svg" alt="">
+                                </div>
+                                <div class="m-val__val">Food at work</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__link">
+                            <img src="images/mass_mini.svg" style="image-rendering: pixelated;" alt="">
+                            Presale
+<!--                            <div class="pulse"></div>-->
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="/frens" class="menu__link">
+                            <img src="images/menu_ico5.png" style="image-rendering: pixelated;" alt="">
+                            Frens
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/phaser.js"></script>
+<script src="js/bundle.js" defer=""></script>
+<script>
+    const pageLang = 'en';
+</script>
+<script>
+    let loaded = false;
+    let input;
+    let initData = null;
+    let userData = null;
+    let updateUserDataInterval = null;
+    let play = false;
+
+    let windowRoom;
+    let sofa;
+    let cat;
+    let ball = null;
+
+    let catCurrentDestinationPoint = null;
+    let catQueue = [];
+    let catCurrentAction = { action: 'die', end: Math.floor(Date.now() / 1000) + 99999 };
+
+    let ballCurrentDestinationPoint = null;
+    let ballQueue = [];
+    let ballCurrentAction = null;
+
+    let coins = [];
+    let coinsQueues = [];
+    let coinsCurrentActions = [];
+
+    const spritesheets = [
+        {
+            key: 'cat_die',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_die_strip8.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 7
+            }
+        },
+        {
+            key: 'cat_idle_1',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_idle_strip8.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 7
+            }
+        },
+        {
+            key: 'cat_idle_2',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_idle_blink_strip8.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 7
+            }
+        },
+        {
+            key: 'cat_walk',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_walk_strip8.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 7
+            }
+        },
+        {
+            key: 'cat_jump',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_jump_strip4.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 3
+            }
+        },
+        {
+            key: 'cat_land',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_land_strip2.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 1
+            }
+        },
+        {
+            key: 'cat_run',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_run_strip4.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 3
+            }
+        },
+        {
+            key: 'cat_lie_down',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_liedown_strip24.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 23
+            }
+        },
+        {
+            key: 'cat_attack',
+            source: '/assets/img/main-bg/cat01_spritesheets/cat01_attack_strip7.png',
+            settings: {
+                frameWidth: 40,
+                frameHeight: 40,
+                startFrame: 0,
+                endFrame: 6
+            }
+        },
+        {
+            key: 'toy_ball',
+            source: '/assets/img/main-bg/toys/toy-ball-1.png',
+            settings: {
+                frameWidth: 15,
+                frameHeight: 15,
+                startFrame: 0,
+                endFrame: 0
+            }
+        },
+        {
+            key: 'coin',
+            source: '/assets/img/main-bg/coins/coin4_16x16.png',
+            settings: {
+                frameWidth: 16,
+                frameHeight: 16,
+                startFrame: 0,
+                endFrame: 8
+            }
+        },
+    ];
+
+    const animations = [
+        {
+            key: 'cat_die',
+            spritesheet: 'cat_die',
+            frames: {
+                start: 7,
+                end: 7
+            },
+            repeat: -1
+        },
+        {
+            key: 'cat_idle_1',
+            spritesheet: 'cat_idle_1',
+            frames: {
+                start: 0,
+                end: 7
+            },
+            repeat: -1
+        },
+        {
+            key: 'cat_idle_2',
+            spritesheet: 'cat_idle_2',
+            frames: {
+                start: 0,
+                end: 7
+            },
+            repeat: -1
+        },
+        {
+            key: 'cat_idle_3',
+            spritesheet: 'cat_lie_down',
+            frames: {
+                start: 0,
+                end: 23
+            },
+            repeat: -1
+        },
+        {
+            key: 'cat_walk',
+            spritesheet: 'cat_walk',
+            frames: {
+                start: 0,
+                end: 7
+            },
+            repeat: -1
+        },
+        {
+            key: 'cat_run',
+            spritesheet: 'cat_run',
+            frames: {
+                start: 0,
+                end: 3
+            },
+            repeat: -1
+        },
+        {
+            key: 'cat_attack',
+            spritesheet: 'cat_attack',
+            frames: {
+                start: 0,
+                end: 6
+            },
+            repeat: 0
+        },
+        {
+            key: 'coin_idle',
+            spritesheet: 'coin',
+            frames: {
+                start: 0,
+                end: 7
+            },
+            repeat: -1
+        },
+    ];
+
+    const targetWidth = 640,
+        targetHeight = 960,
+
+        frameWidth = (window.innerWidth > 425) ? 425 : window.innerWidth,
+        frameHeight = (window.innerHeight > 1000) ? 1000 : window.innerHeight,
+
+        deviceRatio = frameWidth / frameHeight,
+        newRatio = (targetHeight / targetWidth) * deviceRatio,
+
+        newWidth = targetWidth * newRatio,
+        newHeight = targetHeight;
+
+    const floorBounds = {
+        minX: 60,
+        maxX: newWidth - 60,
+        minY: newHeight * 0.4,
+        maxY: newHeight - 160
+    };
+
+    function popupShow() {
+        $('.popup').addClass('popup--show');
+    }
+
+    function popupClose() {
+        $('.popup').removeClass('popup--show');
+    }
+
+    function getCurrentTimestamp() {
+        return Math.floor(Date.now() / 1000);
+    }
+
+    function withdraw() {
+        if (initData === null) {
+            return;
         }
-    </script>
-</body>
-</html>
+
+        const amount = $('#withdraw-amount').val();
+        const address = $('#withdraw-address').val();
+        const tag = $('#withdraw-tag').val();
+        request('withdraw', {data: initData, amount: amount, address: address, tag: tag});
+    }
+
+    function setInterface() {
+        // $('#buy-01-ton').on('click', function () {
+        //     if (userData) {
+        //         request('buy', {data: initData, type: 1});
+        //     }
+        // });
+        //
+        // $('#buy-05-ton').on('click', function () {
+        //     if (userData) {
+        //         request('buy', {data: initData, type: 2});
+        //     }
+        // });
+        //
+        // $('#buy-1-ton').on('click', function () {
+        //     if (userData) {
+        //         request('buy', {data: initData, type: 3});
+        //     }
+        // });
+        //
+        // $('#buy-2-ton').on('click', function () {
+        //     if (userData) {
+        //         request('buy', {data: initData, type: 4});
+        //     }
+        // });
+        //
+        // $('#buy-3-ton').on('click', function () {
+        //     if (userData) {
+        //         request('buy', {data: initData, type: 5});
+        //     }
+        // });
+        //
+        // $('#buy-5-ton').on('click', function () {
+        //     if (userData) {
+        //         request('buy', {data: initData, type: 6});
+        //     }
+        // });
+        //
+        // $('#buy-7-ton').on('click', function () {
+        //     if (userData) {
+        //         request('buy', {data: initData, type: 7});
+        //     }
+        // });
+        //
+        // $('#buy-auto').on('click', function () {
+        //     if (userData) {
+        //         request('buyAuto', {data: initData});
+        //     }
+        // });
+        //
+        // $('#withdraw-button').on('click', function () {
+        //     if (userData) {
+        //         withdraw();
+        //     }
+        // });
+        //
+        // $('.modal--recharge').on('shown.bs.modal', function (e) {
+        //     $('.modal--balance').modal('hide');
+        //     window.history.pushState({}, "mASS Game - Recharge", "https://massgame.nanhai.dev/#recharge");
+        // });
+        //
+        // $('.modal--recharge').on('hidden.bs.modal', function (e) {
+        //     window.history.pushState({}, "mASS Game", "https://massgame.nanhai.dev/");
+        // });
+        //
+        // $('.modal--withdraw-funds').on('shown.bs.modal', function (e) {
+        //     $('.modal--balance').modal('hide');
+        // });
+        //
+        // $('.send-tx').on('click', function () {
+        //     //$('.modal--recharge').modal('hide');
+        // });
+
+        $(".popup").click(function () {
+            $(this).removeClass('popup--show');
+        });
+
+        if (pageLang === 'ru') {
+            $('#top-up-amount-text').text('Сумма TON:');
+            $('#fair-amount-text').text('Сумма TON:');
+            $('#send-tx-btn .secondary-btn__inner').text('Пополнить');
+        }
+
+        // $('#send-tx-btn').on('click', function () {
+        //     let amount = Number($('#top-up-amount').val());
+        //     if (isNaN(amount)) {
+        //         amount = 0.1;
+        //         $('#top-up-amount').val((amount).toString());
+        //         return;
+        //     }
+        //
+        //     if (amount > 11.6) {
+        //         amount = 11.6;
+        //         $('#top-up-amount').val((amount).toString());
+        //         return;
+        //     }
+        //
+        //     if (amount < 0.1) {
+        //         amount = 0.1;
+        //         $('#top-up-amount').val((amount).toString());
+        //         return;
+        //     }
+        //
+        //     $('#send-tx-btn-hidden').attr('data-amount', (amount).toString());
+        //     $('#send-tx-btn-hidden').click();
+        // });
+
+        // $('#fair-button').on('click', function () {
+        //     let amount = Number($('#fair-amount').val());
+        //     if (isNaN(amount)) {
+        //         amount = 0.1;
+        //         $('#fair-amount').val((amount).toString());
+        //         return;
+        //     }
+        //
+        //     if (amount > 999) {
+        //         amount = 999;
+        //         $('#fair-amount').val((amount).toString());
+        //         return;
+        //     }
+        //
+        //     if (amount < 0.1) {
+        //         amount = 0.1;
+        //         $('#fair-amount').val((amount).toString());
+        //         return;
+        //     }
+        //
+        //     request('contribute', {data: initData, amount: amount});
+        // });
+    }
+
+    let buyRequestProcessing = false;
+    let withdrawRequestProcessing = false;
+    let fairRequestProcessing = false;
+    let autoBuyRequestProcessing = false;
+    let enableAutoProcessing = false;
+    async function request(url, params) {
+        if (url === 'buy' && buyRequestProcessing
+            || url === 'withdraw' && withdrawRequestProcessing
+            || url === 'contribute' && fairRequestProcessing
+            || url === 'buyAuto' && autoBuyRequestProcessing
+            || url === 'enableAuto' && enableAutoProcessing) {
+            return;
+        }
+
+        if (url === 'buy') {
+            buyRequestProcessing = true;
+        }
+
+        if (url === 'withdraw') {
+            withdrawRequestProcessing = true;
+        }
+
+        if (url === 'contribute') {
+            fairRequestProcessing = true;
+        }
+
+        if (url === 'buyAuto') {
+            autoBuyRequestProcessing = true;
+        }
+        if (url === 'enableAuto') {
+            enableAutoProcessing = true;
+        }
+
+        const response = await fetch(`/api/${url}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(params)
+        });
+
+        const result = await response.json();
+        if (result.response) {
+            if (userData === null) {
+                if (pageLang === 'en' && result.response.lang !== 'en') {
+                    window.location.href = '/?lang=ru';
+                }
+
+                if (pageLang === 'ru' && result.response.lang !== 'ru') {
+                    window.location.href = '/?lang=en';
+                }
+
+                setInterface();
+                if (loaded) {
+                    $('.preloader').attr('style', 'display: none;');
+                    $('.main__wrapper').attr('style', '');
+                }
+            }
+
+            userData = result.response;
+            updateInfo();
+
+            if (userData.buyResult) {
+                $('#popup-title').text('Success');
+                $('#popup-text').text(userData.buyResult);
+                popupShow();
+                setTimeout(popupClose, 4000);
+                $('.modal--buy-food').modal('hide');
+            }
+
+            if (userData.withdrawResult) {
+                $('#popup-title').text('Success');
+                $('#popup-text').text(userData.withdrawResult);
+                popupShow();
+                setTimeout(popupClose, 4000);
+                $('.modal--withdraw-funds').modal('hide');
+            }
+
+            if (userData.contributionResult) {
+                $('#popup-title').text('Success');
+                $('#popup-text').text(userData.contributionResult);
+                popupShow();
+                setTimeout(popupClose, 4000);
+                $('.modal--fundraising').modal('hide');
+            }
+
+            if (userData.buyAutoResult) {
+                $('#popup-title').text('Success');
+                $('#popup-text').text(userData.buyAutoResult);
+                popupShow();
+                setTimeout(popupClose, 4000);
+                $('.modal--buy-food').modal('hide');
+            }
+        } else {
+            if (userData === null) {
+                if (url !== 'getError') {
+                    await request('getError', {data: JSON.stringify(initData)});
+                }
+                return;
+            }
+
+            $('#popup-title').text(pageLang === 'en' ? 'Error' : 'Ошибка');
+            $('#popup-text').text(result.message);
+            popupShow();
+            setTimeout(popupClose, 4000);
+        }
+
+        if (url === 'buy') {
+            buyRequestProcessing = false;
+        }
+
+        if (url === 'withdraw') {
+            withdrawRequestProcessing = false;
+        }
+
+        if (url === 'contribute') {
+            fairRequestProcessing = false;
+        }
+
+        if (url === 'buyAuto') {
+            autoBuyRequestProcessing = false;
+        }
+
+        if (url === 'enableAuto') {
+            enableAutoProcessing = false;
+        }
+    }
+
+    function processMessages() {
+        while (userData.messages.length > 0) {
+            let message = userData.messages.shift();
+            if (message.type === 'cell_completed') {
+                const huntPoint = {
+                    x: Math.round(Math.random()) === 1 ? -200 : floorBounds.maxX + 200,
+                    y: cat.y
+                };
+
+                const finalPoint = {
+                    x: Math.round(Math.random() * (floorBounds.maxX - floorBounds.minX)) + floorBounds.minX,
+                    y: Math.round(Math.random() * (floorBounds.maxY - floorBounds.minY)) + floorBounds.minY,
+                };
+
+                catQueue.push({ action: 'run', point: huntPoint });
+                catQueue.push({ action: 'pickupCoin' });
+                catQueue.push({ action: 'walk', point: finalPoint });
+                catQueue.push({ action: 'dropCoin' });
+            }
+        }
+    }
+
+    function buyButtonsEnable(foodTypes) {
+        if (foodTypes.includes(1)) {
+            $('#buy-01-ton .buy-food__inner .secondary-btn').attr('style', 'opacity: 50%;').attr("disabled", true);
+        } else {
+            $('#buy-01-ton .buy-food__inner .secondary-btn').attr('style', '').attr("disabled", false);
+        }
+
+        if (foodTypes.includes(2)) {
+            $('#buy-05-ton .buy-food__inner .secondary-btn').attr('style', 'opacity: 50%;').attr("disabled", true);
+        } else {
+            $('#buy-05-ton .buy-food__inner .secondary-btn').attr('style', '').attr("disabled", false);
+        }
+
+        if (foodTypes.includes(3)) {
+            $('#buy-1-ton .buy-food__inner .secondary-btn').attr('style', 'opacity: 50%;').attr("disabled", true);
+        } else {
+            $('#buy-1-ton .buy-food__inner .secondary-btn').attr('style', '').attr("disabled", false);
+        }
+
+        if (foodTypes.includes(4)) {
+            $('#buy-2-ton .buy-food__inner .secondary-btn').attr('style', 'opacity: 50%;').attr("disabled", true);
+        } else {
+            $('#buy-2-ton .buy-food__inner .secondary-btn').attr('style', '').attr("disabled", false);
+        }
+
+        if (foodTypes.includes(5)) {
+            $('#buy-3-ton .buy-food__inner .secondary-btn').attr('style', 'opacity: 50%;').attr("disabled", true);
+        } else {
+            $('#buy-3-ton .buy-food__inner .secondary-btn').attr('style', '').attr("disabled", false);
+        }
+
+        if (foodTypes.includes(6)) {
+            $('#buy-5-ton .buy-food__inner .secondary-btn').attr('style', 'opacity: 50%;').attr("disabled", true);
+        } else {
+            $('#buy-5-ton .buy-food__inner .secondary-btn').attr('style', '').attr("disabled", false);
+        }
+
+        if (foodTypes.includes(7)) {
+            $('#buy-7-ton .buy-food__inner .secondary-btn').attr('style', 'opacity: 50%;').attr("disabled", true);
+        } else {
+            $('#buy-7-ton .buy-food__inner .secondary-btn').attr('style', '').attr("disabled", false);
+        }
+    }
+
+    function pulseMarketEnable(foodTypes) {
+        // let minBuy = 0;
+        // if (!foodTypes.includes(1) && +userData.food1_count < 3) {
+        //     minBuy = 0.1;
+        // } else if (!foodTypes.includes(2)) {
+        //     minBuy = 0.5;
+        // } else if (!foodTypes.includes(3)) {
+        //     minBuy = 1;
+        // } else if (!foodTypes.includes(4)) {
+        //     minBuy = 2;
+        // } else if (!foodTypes.includes(5)) {
+        //     minBuy = 3;
+        // } else if (!foodTypes.includes(6)) {
+        //     minBuy = 5;
+        // } else if (!foodTypes.includes(7)) {
+        //     minBuy = 7;
+        // }
+        //
+        // if (minBuy === 0 || minBuy > +userData.ton) {
+        //     $('.pulse__market').attr('style', 'display: none;');
+        // } else {
+        //     $('.pulse__market').attr('style', '');
+        // }
+    }
+
+    function setFoodsProgress() {
+        // if (userData.foods && Object.keys(userData.foods)) {
+        //     let foodTypesCount = 7;
+        //     let foodsInWork = Object.keys(userData.foods).length;
+        //     if (+userData.food1_count >= 5) {
+        //         foodTypesCount--;
+        //     }
+        //
+        //     $('#food-progress').val(100 / foodTypesCount * foodsInWork);
+        //
+        //     const foodTypes = Object.keys(userData.foods).map(f => +f);
+        //     buyButtonsEnable(foodTypes);
+        //     pulseMarketEnable(foodTypes);
+        //
+        //     if (foodsInWork > 0) {
+        //         game.scene.scenes[0].spawnDoge();
+        //     }
+        // }
+        //
+        // if (+userData.food1_count >= 5) {
+        //     $('#buy-01-ton').attr('style', 'display: none;');
+        // }
+    }
+
+    function updateInfo() {
+        $('#cate-balance').text(userData.cate);
+        $('#ton-balance').text(userData.ton);
+        $('#ton-balance-modal').text(userData.ton);
+        $('#balance-modal-ton').text(userData.ton);
+        $('#ton-balance-modal-buy').text(userData.ton);
+        $('#ton-balance-modal-withdraw').text(userData.ton);
+        $('#ton-balance-modal-fair').text(userData.ton);
+        $('#fair-balance').text(userData.total_contributions + ' TON');
+        $('#user-contribution').text(userData.contributions + ' TON');
+        $('#fair-rate').text('1 mASS = ' + userData.mass_rate + ' TON');
+        $('#market-cap').text(userData.initial_supply + ' TON');
+        $('#total-contributors').text(userData.total_contributors);
+
+        // if (+userData.auto === 1) {
+        //     $('.auto-btn').addClass('active');
+        // } else {
+        //     $('.auto-btn').removeClass('active');
+        // }
+
+        // if (+userData.auto_available) {
+        //     $('#buy-auto').attr('style', 'display: none;').attr('disabled', true);
+        //
+        //     $('.auto-btn').off('click').on('click', function () {
+        //         request('enableAuto', {data: initData});
+        //     });
+        // } else {
+        //     $('.auto-btn').off('click').on('click', function () {
+        //         $('.modal--buy-food').modal('show');
+        //     });
+        // }
+
+        if (userData.min_payment && $('#withdraw-amount').val() === '') {
+            $('#withdraw-amount').val(userData.min_payment);
+        }
+
+        if (userData.payment_address && $('#withdraw-address').val() === '') {
+            $('#withdraw-address').val(userData.payment_address);
+        }
+
+        if (userData.payment_tag && $('#withdraw-tag').val() === '') {
+            $('#withdraw-tag').val(userData.payment_tag);
+        }
+
+        $('#comment').val('user' + userData.uid);
+
+        setFoodsProgress();
+        setHappiness();
+        startHappinessCountdown();
+        processMessages();
+        // setUsdPrices();
+    }
+
+    function startUpdateUserData() {
+        // updateUserDataInterval = setInterval(() => {
+        //     request('user', {data: initData});
+        // }, 30000);
+    }
+
+    function getCurrentHappiness() {
+        return 0;
+
+        if (!userData) {
+            return 0;
+        }
+
+        const happiness = +userData.happiness - Math.floor((getCurrentTimestamp() - userData.happiness_last_update) / 60 / 12);
+        return happiness < 0 ? 0 : happiness;
+    }
+
+    function setHappiness() {
+        $('#happiness-progress').val(getCurrentHappiness());
+    }
+
+    function startHappinessCountdown() {
+        // setInterval(() => {
+        //     setHappiness();
+        // }, 60000);
+    }
+
+    class CatHouse extends Phaser.Scene {
+        preload() {
+            this.scale.pageAlignHorisontally = true;
+            this.scale.pageAlignVertically = true;
+            this.scale.forcePortrait = true;
+
+            if (Telegram && Telegram.WebApp) {
+                Telegram.WebApp.MainButton.hide();
+                Telegram.WebApp.BackButton.hide();
+                Telegram.WebApp.onEvent('backButtonClicked', function () {
+                    location.href = "/";
+                });
+                Telegram.WebApp.expand();
+
+                initData = Telegram.WebApp.initData;
+                if (initData) {
+                    request('user', {data: initData});
+                    startUpdateUserData();
+                }
+            } else {
+                $('body').hide();
+            }
+
+            this.load.image('floor', '/assets/img/main-bg/room/floor.png');
+            this.load.image('plant', '/assets/img/main-bg/room/inside_left.png');
+            this.load.image('flower', '/assets/img/main-bg/room/flower.png');
+            this.load.image('sofa', '/assets/img/main-bg/room/inside_right.png');
+            this.load.image('mountain', '/assets/img/main-bg/room/outdoor_left.png');
+            this.load.image('tree', '/assets/img/main-bg/room/outdoor_right.png');
+            this.load.image('window', '/assets/img/main-bg/room/window.png');
+            this.load.image('doge', '/assets/img/main-bg/room/doge.png?v=1.0');
+
+            for (const spritesheet of spritesheets) {
+                this.load.spritesheet(spritesheet.key, spritesheet.source, spritesheet.settings);
+            }
+        }
+
+        create() {
+            input = this.input;
+
+            const bg = this.add.tileSprite(this.scale.width * 0.5, this.scale.height * 0.5, 3000, 3000, 'floor');
+            bg.setScale(0.7);
+
+            const top = this.add.rectangle(this.scale.width * 0.5, 100, this.scale.width, 100, 0x88431b);
+            const sky = this.add.rectangle(this.scale.width * 0.5, 100, this.scale.width, 100, 0xb6ddf2);
+            const mountain = this.add.image(0, 0, 'mountain');
+            const tree = this.add.image(0, 0, 'tree');
+
+            const window = this.add.image(this.scale.width * 0.5, 100, 'window');
+            window.displayWidth = this.scale.width + 1;
+            window.scaleY = window.scaleX;
+            window.y = window.displayHeight;
+            windowRoom = window;
+
+            sky.displayWidth = window.displayWidth + 1;
+            sky.displayHeight = window.displayHeight + 1;
+            sky.y = window.y;
+
+            top.displayHeight = window.displayHeight * 0.5;
+            top.y = window.displayHeight * 0.25;
+
+            mountain.displayHeight = window.displayHeight;
+            mountain.scaleX = mountain.scaleY;
+            mountain.x = mountain.displayWidth * 0.5;
+            mountain.y = sky.y;
+
+            tree.displayHeight = window.displayHeight;
+            tree.scaleX = tree.scaleY;
+            tree.x = this.scale.width - tree.displayWidth * 0.5;
+            tree.y = sky.y;
+
+            const plant = this.add.image(0, window.y + window.displayHeight * 0.5, this.getRandInt(1, 5) === 1 ? 'flower' : 'plant');
+            plant.scaleX = window.scaleX;
+            plant.scaleY = plant.scaleX;
+            plant.x = plant.displayWidth;
+
+            sofa = this.add.image(0, window.y + window.displayHeight * 0.5, 'sofa');
+            sofa.scaleX = window.scaleX;
+            sofa.scaleY = sofa.scaleX;
+            sofa.x = this.scale.width - plant.displayWidth;
+
+            floorBounds.minY = sofa.y + sofa.displayHeight * 0.5 + 10;
+
+            cat = this.physics.add.sprite(
+                this.scale.width * 0.5,
+                floorBounds.minY,
+                'cat_die',
+            );
+
+            cat.setName('cat');
+            cat.setScale(5);
+            cat.setDepth(2);
+
+            for (const animation of animations) {
+                this.anims.create({
+                    key: animation.key,
+                    frameRate: 8,
+                    frames: this.anims.generateFrameNumbers(animation.spritesheet, animation.frames),
+                    repeat: animation.repeat
+                });
+            }
+
+            loaded = true;
+            if (userData) {
+                $('.preloader').attr('style', 'display: none;');
+                $('.main__wrapper').attr('style', '');
+            }
+        }
+
+        spawnDoge() {
+            const doge = this.add.image(0, sofa.y, 'doge');
+            doge.scaleX = sofa.displayWidth / 34 * 0.7;
+            doge.scaleY = doge.scaleX;
+            doge.x = sofa.x;
+            doge.y = sofa.y - doge.displayHeight * 0.3;
+        }
+
+        catStop() {
+            cat.setVelocity(0);
+            catCurrentDestinationPoint = null;
+            catCurrentAction = null;
+        }
+
+        catMove(animKey, speed, point = null) {
+            if (catCurrentDestinationPoint === null && point !== null) {
+                catCurrentDestinationPoint = point;
+                if (point.x >= cat.x) {
+                    this.catLookRight();
+                } else {
+                    this.catLookLeft();
+                }
+            }
+
+            if (catCurrentDestinationPoint) {
+                let pointDistance = Phaser.Math.Distance.Between(cat.x, cat.y, catCurrentDestinationPoint.x, catCurrentDestinationPoint.y);
+                if (pointDistance < 5) {
+                    this.catStop();
+                } else if (cat.body.velocity.x === 0 && cat.body.velocity.y === 0) {
+                    this.physics.moveTo(cat, catCurrentDestinationPoint.x, catCurrentDestinationPoint.y, speed);
+                    cat.anims.play(animKey);
+                }
+            }
+        }
+
+        catSlowMove(point = null) {
+            this.catMove('cat_walk', 150, point);
+        }
+
+        catFastMove(point = null) {
+            this.catMove('cat_run', 300, point);
+        }
+
+        ballFallMove(speed, endpoint, point = null) {
+            if (ball === null) {
+                return;
+            }
+
+            if (ballCurrentDestinationPoint === null && point !== null) {
+                ballCurrentDestinationPoint = point;
+                if (endpoint.y < cat.y + 50) {
+                    ball.setDepth(1);
+                } else {
+                    ball.setDepth(3);
+                }
+            }
+
+            if (ballCurrentDestinationPoint) {
+                if (ball.x > this.physics.world.bounds.width || ball.y > this.physics.world.bounds.height || ball.x < 0 || ball.y < 0) {
+                    ballCurrentDestinationPoint = null;
+                    ballCurrentAction = null;
+                    ball.destroy();
+                    ball = null;
+                    return;
+                }
+
+                let pointDistance = Phaser.Math.Distance.Between(ball.x, ball.y, ballCurrentDestinationPoint.x, ballCurrentDestinationPoint.y);
+                if (pointDistance < 5) {
+                    ball.setVelocity(0);
+                    ball.setAcceleration(0, 0);
+                    ballCurrentDestinationPoint = null;
+                    ballCurrentAction = null;
+                } else if (ball.body.velocity.x === 0 && ball.body.velocity.y === 0) {
+                    this.physics.accelerateTo(ball, ballCurrentDestinationPoint.x, ballCurrentDestinationPoint.y, speed, speed, speed);
+                }
+            }
+        }
+
+        ballJumpMove(speed, endpoint, point = null) {
+            if (ball === null) {
+                return;
+            }
+
+            if (ballCurrentDestinationPoint === null && point !== null) {
+                ballCurrentDestinationPoint = point;
+                if (endpoint.y < cat.y + 50) {
+                    ball.setDepth(1);
+                } else {
+                    ball.setDepth(3);
+                }
+            }
+
+            if (ballCurrentDestinationPoint) {
+                if (ball.x > this.physics.world.bounds.width || ball.y > this.physics.world.bounds.height || ball.x < 0 || ball.y < 0) {
+                    ballCurrentDestinationPoint = null;
+                    ballCurrentAction = null;
+                    ball.destroy();
+                    ball = null;
+                    play = false;
+                    return;
+                }
+
+                let pointDistance = Phaser.Math.Distance.Between(ball.x, ball.y, ballCurrentDestinationPoint.x, ballCurrentDestinationPoint.y);
+                if (pointDistance < 5) {
+                    ball.setVelocity(0);
+                    ball.setAcceleration(0, 0);
+                    ballCurrentDestinationPoint = null;
+                    ballCurrentAction = null;
+                } else if (ball.body.velocity.x === 0 && ball.body.velocity.y === 0) {
+                    this.physics.moveTo(ball, ballCurrentDestinationPoint.x, ballCurrentDestinationPoint.y, speed);
+                    this.physics.accelerateTo(ball, ballCurrentDestinationPoint.x, ballCurrentDestinationPoint.y, -speed / 2, speed, speed);
+                }
+            }
+        }
+
+        ballChangeDepth() {
+            if (ball.y < cat.y + 50) {
+                ball.setDepth(1);
+            } else {
+                ball.setDepth(3);
+            }
+        }
+
+        ballFallSlow(endpoint, point = null, speed = 400) {
+            this.ballFallMove(speed, endpoint, point);
+        }
+
+        ballJumpSlow(endpoint, point = null, speed = 400) {
+            this.ballJumpMove(speed, endpoint, point);
+        }
+
+        ballJumpOut() {
+            let point = null;
+            if (ballCurrentDestinationPoint === null) {
+                if (cat.x < ball.x) {
+                    point = { x: ball.x + floorBounds.maxX, y: ball.y - floorBounds.maxX / 2 };
+                } else {
+                    point = { x: ball.x - floorBounds.maxX, y: ball.y - floorBounds.maxX / 2 };
+                }
+            }
+
+            this.ballJumpMove(800, point, point);
+        }
+
+        getRandInt(min, max) {
+            return Math.round(Math.random() * (max - min)) + min;
+        }
+
+        getRandFloorPoint() {
+            return {
+                x: this.getRandInt(floorBounds.minX, floorBounds.maxX),
+                y: this.getRandInt(floorBounds.minY, floorBounds.maxY),
+            }
+        }
+
+        getCurrentTimestamp() {
+            return Math.floor(Date.now() / 1000);
+        }
+
+        catMakeDecision() {
+            if (getCurrentHappiness() === 0) {
+                catQueue.push({ action: 'die', end: this.getCurrentTimestamp() + this.getRandInt(5, 10) });
+                return;
+            }
+
+            const decision = this.getRandInt(1, 5);
+            switch (decision) {
+                case 1:
+                    catQueue.push({ action: 'idle_1', end: this.getCurrentTimestamp() + this.getRandInt(5, 10) });
+                    break;
+                case 2:
+                    catQueue.push({ action: 'idle_2', end: this.getCurrentTimestamp() + this.getRandInt(5, 10) });
+                    break;
+                case 3:
+                    catQueue.push({ action: 'idle_3', end: this.getCurrentTimestamp() + this.getRandInt(10, 40) });
+                    break;
+                case 4:
+                    catQueue.push({ action: 'walk', end: 0, point: this.getRandFloorPoint() });
+                    break;
+                case 5:
+                    catQueue.push({ action: 'run', end: 0, point: this.getRandFloorPoint() });
+                    break;
+            }
+        }
+
+        spawnToyBall() {
+            let spawnToyX = Math.floor(Math.random() * (newWidth - 120) + 60);
+            let spawnToyY = floorBounds.minY;
+
+            if (spawnToyX < floorBounds.minX) {
+                spawnToyX = floorBounds.minX;
+            }
+
+            if (spawnToyX > floorBounds.maxX) {
+                spawnToyX = floorBounds.maxX;
+            }
+
+            if (spawnToyY > floorBounds.minY) {
+                spawnToyY = floorBounds.minY;
+            }
+
+            let moveToPoint = {
+                x: spawnToyX,
+                y: spawnToyY
+            }
+
+            if (floorBounds.minY + 350 < floorBounds.minY) {
+                moveToPoint.y = floorBounds.minY;
+            } else if (floorBounds.minY + 350 > floorBounds.maxY) {
+                moveToPoint.y = floorBounds.maxY;
+            } else {
+                moveToPoint.y = floorBounds.minY + 350;
+            }
+
+            ball = this.physics.add.sprite(spawnToyX, spawnToyY, 'toy_ball');
+            ball.setName('ball');
+            ball.setScale(4);
+            this.ballFall(moveToPoint);
+        }
+
+        ballFall(moveToPoint) {
+            ballQueue.push({ action: 'fall', endpoint: moveToPoint, point: moveToPoint });
+            ballQueue.push({ action: 'jump', endpoint: moveToPoint, point: { x: moveToPoint.x, y: moveToPoint.y - 150 }, speed: 300 });
+            ballQueue.push({ action: 'fall', endpoint: moveToPoint, point: moveToPoint, speed: 250 });
+            ballQueue.push({ action: 'jump', endpoint: moveToPoint, point: { x: moveToPoint.x, y: moveToPoint.y - 50 }, speed: 200 });
+            ballQueue.push({ action: 'fall', endpoint: moveToPoint, point: moveToPoint, speed: 150 });
+            ballQueue.push({ action: 'depth' });
+
+            this.catStartPlay(moveToPoint);
+        }
+
+        coinFollow(i) {
+            if (cat.flipX) {
+                coins[i].x = cat.x - 15;
+            } else {
+                coins[i].x = cat.x + 15;
+            }
+
+            let yShift = 45;
+            if (cat.anims.currentFrame) {
+                switch (cat.anims.currentFrame.index) {
+                    case 0:
+                    case 4:
+                        yShift += 7;
+                        break;
+                    case 2:
+                    case 6:
+                        yShift -= 7;
+                        break;
+                }
+            }
+
+            coins[i].y = cat.y + yShift;
+        }
+
+        coinMoveOut(i) {
+            if (!coins[i]) {
+                return;
+            }
+
+            this.physics.moveTo(coins[i], coins[i].x, -100, 500);
+            if (coins[i].x + 50 < 0 && coins[i].y + 50 < 0) {
+                coinsCurrentActions[i] = null;
+                coins[i].setVelocity(0);
+                coins[i].destroy();
+                coins[i] = null;
+
+                coinsQueues.splice(i, 1);
+                coins.splice(i, 1);
+                coinsCurrentActions.splice(i, 1);
+            }
+        }
+
+        catStartPlay(ballPoint) {
+            this.catStop();
+
+            catQueue.unshift({ action: 'attack' });
+
+            if (ballPoint.x < this.physics.world.bounds.width * 0.5) {
+                catQueue.unshift({ action: 'run', point: { x: ballPoint.x + 90, y: ballPoint.y - 35 } });
+            } else {
+                catQueue.unshift({ action: 'run', point: { x: ballPoint.x - 90, y: ballPoint.y - 35 } });
+            }
+
+            catQueue.unshift({ action: 'waitBallFall' });
+        }
+
+        catHunt() {
+            cat.setVelocity(0);
+            catCurrentDestinationPoint = null;
+
+            if (catCurrentAction.action === 'run') {
+                catQueue.unshift(catCurrentAction);
+            }
+            catCurrentAction = null;
+
+            const huntPoint = {
+                x: Math.round(Math.random()) === 1 ? -200 : floorBounds.maxX + 200,
+                y: cat.y
+            };
+
+            const finalPoint = this.getRandFloorPoint();
+
+            catQueue.unshift({ action: 'dropCoin' });
+            catQueue.unshift({ action: 'walk', point: finalPoint });
+            catQueue.unshift({ action: 'pickupCoin' });
+            catQueue.unshift({ action: 'run', point: huntPoint });
+        }
+
+        getLastCoin() {
+            if (coins.length === 0) {
+                return null;
+            }
+
+            return coins[coins.length - 1] ?? null;
+        }
+
+        catPickupCoin() {
+            coins.push(this.physics.add.sprite(
+                cat.x,
+                cat.y,
+                'coin',
+            ));
+            coinsQueues.push([]);
+            coinsCurrentActions.push(null);
+
+            this.getLastCoin().setName('coin');
+            this.getLastCoin().setScale(3);
+            this.getLastCoin().setDepth(2);
+            coinsQueues[coins.length - 1].push({ action: 'follow', end: 0 });
+            catCurrentAction = null;
+        }
+
+        catDropCoin() {
+            coinsQueues[coins.length - 1].push({ action: 'idle', end: getCurrentTimestamp() + 5 });
+            coinsQueues[coins.length - 1].push({ action: 'move_out', end: 0 });
+            coinsCurrentActions[coins.length - 1] = null;
+            catCurrentAction = null;
+        }
+
+        catAttack() {
+            if (cat.anims.currentAnim.key !== 'cat_attack') {
+                if (cat.x > ball.x) {
+                    this.catLookLeft();
+                } else {
+                    this.catLookRight();
+                }
+
+                cat.anims.play('cat_attack');
+            } else {
+                if (cat.anims.currentFrame.index === 7) {
+                    catCurrentAction = null;
+                } else if (cat.anims.currentFrame.index === 3 && ballCurrentAction && ballCurrentAction.action === 'depth') {
+                    ballQueue.push({ action: 'jumpOut' });
+                    ballCurrentAction = null;
+                }
+            }
+        }
+
+        catLookLeft() {
+            cat.setFlipX(true);
+        }
+
+        catLookRight() {
+            cat.setFlipX(false);
+        }
+
+        catIdle(type) {
+            let animKey = 'cat_idle_' + type;
+            if (type === 0) {
+                animKey = 'cat_die'
+            }
+
+            if (!cat.anims.currentAnim || cat.anims.currentAnim.key !== animKey) {
+                cat.anims.play(animKey);
+            }
+        }
+
+        catWaitBallFall() {
+            if (cat.x < ball.x) {
+                this.catLookRight();
+            } else {
+                this.catLookLeft();
+            }
+
+            if (!cat.anims.currentAnim || cat.anims.currentAnim.key !== 'cat_idle_3') {
+                cat.anims.play('cat_idle_3');
+            }
+
+            if (ballCurrentAction && ballCurrentAction.action === 'depth') {
+                catCurrentAction = null;
+            }
+        }
+
+        processCatQueue() {
+            if (catQueue.length === 0) {
+                this.catMakeDecision();
+                return;
+            }
+
+            const currentTime = this.getCurrentTimestamp();
+            if (catCurrentAction === null || (catCurrentAction.end !== 0 && catCurrentAction.end < currentTime)) {
+                catCurrentAction = catQueue.shift();
+            }
+
+            switch (catCurrentAction.action) {
+                case 'die':
+                    this.catIdle(0);
+                    break;
+                case 'idle_1':
+                    this.catIdle(1);
+                    break;
+                case 'idle_2':
+                    this.catIdle(2);
+                    break;
+                case 'idle_3':
+                    this.catIdle(3);
+                    break;
+                case 'walk':
+                    this.catSlowMove(catCurrentAction.point);
+                    break;
+                case 'run':
+                    this.catFastMove(catCurrentAction.point);
+                    break;
+                case 'waitBallFall':
+                    this.catWaitBallFall();
+                    break;
+                case 'attack':
+                    this.catAttack();
+                    break;
+                case 'pickupCoin':
+                    this.catPickupCoin();
+                    break;
+                case 'dropCoin':
+                    this.catDropCoin();
+                    break;
+            }
+        }
+
+        processBallQueue() {
+            if (ballQueue.length === 0 && ballCurrentAction === null) {
+                return;
+            }
+
+            if (ballCurrentAction === null) {
+                ballCurrentAction = ballQueue.shift();
+            }
+
+            switch (ballCurrentAction.action) {
+                case 'fall':
+                    this.ballFallSlow(ballCurrentAction.endpoint, ballCurrentAction.point, ballCurrentAction.speed);
+                    break;
+                case 'jump':
+                    this.ballJumpSlow(ballCurrentAction.endpoint, ballCurrentAction.point, ballCurrentAction.speed);
+                    break;
+                case 'jumpOut':
+                    this.ballJumpOut();
+                    break;
+                case 'depth':
+                    this.ballChangeDepth();
+                    break;
+            }
+        }
+
+        processCoinQueue() {
+            if (coins.length === 0) {
+                return;
+            }
+
+            if (coinsQueues[coins.length - 1].length === 0 && coinsCurrentActions[coins.length - 1] === null) {
+                return;
+            }
+
+            const currentTime = this.getCurrentTimestamp();
+            for (let i = 0; i < coins.length; i++) {
+                if (coinsCurrentActions[i] === null && coinsQueues[i].length === 0) {
+                    continue;
+                }
+
+                if (coinsCurrentActions[i] === null || (coinsCurrentActions[i].end !== 0 && coinsCurrentActions[i].end < currentTime)) {
+                    coinsCurrentActions[i] = coinsQueues[i].shift();
+                }
+
+                switch (coinsCurrentActions[i].action) {
+                    case 'follow':
+                        this.coinFollow(i);
+                        break;
+                    case 'idle':
+                        if (!coins[i].anims.currentAnim || coins[i].anims.currentAnim.key !== 'coin_idle') {
+                            coins[i].anims.play('coin_idle');
+                        }
+
+                        if (cat.y + 65 > coins[i].y) {
+                            coins[i].setDepth(1);
+                        } else {
+                            coins[i].setDepth(3);
+                        }
+                        break;
+                    case 'move_out':
+                        this.coinMoveOut(i);
+                        break;
+                }
+            }
+        }
+
+        update() {
+            this.processCatQueue();
+            this.processBallQueue();
+            this.processCoinQueue();
+
+            // if (play && ball === null) {
+            //     if (userData && getCurrentHappiness() < 100) {
+            //         request('playWithCat', {data: initData});
+            //     }
+            //
+            //     this.spawnToyBall();
+            // }
+        }
+    }
+
+    // Config
+    const game = new Phaser.Game({
+        type: Phaser.CANVAS,
+        backgroundColor: "rgba(0, 0, 0, 0)",
+        pixelArt: true,
+        scale: {
+            mode: Phaser.Scale.SHOW_ALL,
+            autoCenter: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
+            parent: 'game',
+            // width: 816,
+            // height: 1456,
+            width: newWidth,
+            height: newHeight,
+        },
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: {
+                    y: 0
+                }
+            },
+        },
+        scene: [CatHouse]
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        if (window.location.href === 'https://massgame.nanhai.dev/#recharge') {
+            $('.modal--recharge').modal('show');
+        }
+    });
+
+</script>
+<script src="js/script.js"></script>
+
+<!------------------------------------------------->
+<!--                MODALS                       -->
+<!------------------------------------------------->
+
+<!-- Balance modal -->
+
+<div class="modal modal--balance" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+        <div class="modal-header">
+            <div class="modal-header__row">
+                <div class="modal-header__title">
+                    <h2>Balance</h2>
+                </div>
+
+                <button type="button" class="close img-circle" data-dismiss="modal" aria-label="Close">
+                    <img src="images/modal-close.svg" alt="">
+                </button>
+            </div>
+        </div>
+
+            <div class="modal-inner">
+
+
+                <div class="modal-body">
+                    <div class="m-balance flex aic jcc gap-13" style="display: none;">
+                        <div class="m-balance__tit">Balance:</div>
+                        <div class="m-balance__val flex aic gap-3">
+                            <div class="ico img"><img src="images/toncoin%402x.svg" alt=""></div>
+                            <div class="val" id="balance-modal-ton">0</div>
+                        </div>
+                    </div>
+
+                    <div class="cat flex flex-col aic jcc">
+                        <div class="cat__img img flex jcc">
+                            <img src="images/cat.svg" alt="">
+                        </div>
+                        <div class="cat__bg img">
+                            <img src="images/bg.svg" alt="">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-20">
+                        <button type="button" class="balance-add__price secondary-btn btn-large" data-toggle="modal" data-animation="bounce" data-target=".modal--recharge">
+                            <div class="secondary-btn__inner">Top up balance</div>
+                        </button>
+                        <button type="button" class="balance-add__price secondary-btn btn-large" data-toggle="modal" data-animation="bounce" data-target=".modal--withdraw-funds">
+                            <div class="secondary-btn__inner">Withdraw funds</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- withdraw funds modal -->
+
+<div class="modal modal--withdraw-funds" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <div class="modal-header__row">
+                <div class="modal-header__title">
+                    <h2>Withdraw</h2>
+                </div>
+
+                <button type="button" class="close img-circle" data-dismiss="modal" aria-label="Close">
+                    <img src="images/modal-close.svg" alt="">
+                </button>
+            </div>
+        </div>
+
+            <div class="modal-inner">
+
+                <div class="modal-body">
+                    <div class="m-balance flex aic jcc gap-13">
+                        <div class="m-balance__tit">Balance:</div>
+                        <div class="m-balance__val flex aic gap-3">
+                            <div class="ico img"><img src="images/toncoin%402x.svg" alt=""></div>
+                            <div class="val" id="ton-balance-modal-withdraw">0</div>
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="form__group mb-15">
+                            <label class="form__label primary-color medium-txt">Amount TON:</label>
+                            <input type="text" class="form__control" id="withdraw-amount">
+                        </div>
+                        <div class="form__group mb-15">
+                            <label class="form__label primary-color medium-txt">To Address:</label>
+                            <input type="text" class="form__control" id="withdraw-address">
+                        </div>
+                        <div class="form__group mb-15">
+                            <label class="form__label primary-color medium-txt">Comment:</label>
+                            <textarea type="text" id="withdraw-tag" class="form__control form__control_textarea"></textarea>
+                        </div>
+                        <button type="button" class="secondary-btn btn-large w-100" id="withdraw-button">
+                            <div class="secondary-btn__inner">Transfer</div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recharge modal -->
+
+<div class="modal modal--recharge" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-header__row">
+                <div class="modal-header__title">
+                    <h2>Top up</h2>
+                </div>
+
+                <button type="button" class="close img-circle" data-dismiss="modal" aria-label="Close">
+                    <img src="images/modal-close.svg" alt="">
+                </button>
+            </div>
+        </div>
+
+            <div class="modal-inner">
+
+                <div class="modal-body">
+                    <div class="m-balance flex aic jcc gap-13">
+                        <div class="m-balance__tit">Balance:</div>
+                        <div class="m-balance__val flex aic gap-3">
+                            <div class="ico img"><img src="images/toncoin%402x.svg" alt=""></div>
+                            <div class="val" id="ton-balance-modal-replenish">0</div>
+                        </div>
+                    </div>
+
+                    <form>
+    <div id="button-root" style="display: none;"></div>
+    <span id="ton-address" class="connected_wallet mb-35" style="display:none;"></span>
+    <br><br>
+
+    <div class="form__group mb-15">
+        <label class="form__label primary-color medium-txt" id="top-up-amount-text">Amount TON:</label>
+        <input type="text" class="form__control" id="top-up-amount" value="0.1">
+    </div>
+<!--    <div class="form__group mb-15">-->
+<!--        <label class="form__label primary-color medium-txt">To Address:</label>-->
+<!--        <input type="text" class="form__control" id="top-up-amount-usd" disabled>-->
+<!--    </div>-->
+    <input id="to-wallet" type="hidden" value="UQD71DeVX64VIxWis5hNkj-oTaHgWY8bhsb2xU3ufVwfNsOo">
+    <input id="comment" type="hidden" value="user">
+    <button type="button" class="secondary-btn btn-large w-100" id="send-tx-btn">
+        <div class="secondary-btn__inner">Top up</div>
+    </button>
+    <button type="button" class="secondary-btn btn-large w-100 send-tx" id="send-tx-btn-hidden" data-amount="0.1" style="display: none;">
+        <div class="secondary-btn__inner">Top up</div>
+    </button>
+</form>
+
+<div class="balance-add" style="display: none;">
+    <div class="balance-add__list">
+<!--        <input id="to-wallet" type="hidden" value="--><!--">-->
+<!--        <input id="comment" type="hidden" value="user">-->
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="0.1">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">0.1</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="0.1">~$0.54</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="0.5">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">0.5</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="0.5">~$2.67</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="0.6">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">0.6</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="0.6">~$3.20</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="1">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">1</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="1">~$5.24</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="1.5">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">1.5</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="1.5">~$7.86</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="1.6">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">1.6</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="1.6">~$8.38</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="2">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">2</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="2">~$8.38</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="3">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">3</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="3">~$8.38</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null balance-add__btn card send-tx" data-amount="3.6">
+            <div class="balance-add__inner">
+                <div class="balance-add__coin img">
+                    <img src="images/toncoin%402x.svg" alt="">
+                </div>
+                <div class="balance-add__info">
+                    <div class="balance-add__val">3.6</div>
+                    <div class="balance-add__tit">TON</div>
+                </div>
+                <div class="flex jcc">
+                    <div class="balance-add__price secondary-btn">
+                        <div class="secondary-btn__inner send-tx-usd" data-amount="3.6">~$8.38</div>
+                    </div>
+                </div>
+            </div>
+        </button>
+    </div>
+</div>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Buy Food modal -->
+<div class="modal modal--buy-food" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <div class="modal-header__row">
+                <div class="modal-header__title">
+                    <h2>Market</h2>
+                </div>
+
+                <button type="button" class="close img-circle" data-dismiss="modal" aria-label="Close">
+                    <img src="images/modal-close.svg" alt="">
+                </button>
+            </div>
+        </div>
+
+            <div class="modal-inner">
+
+                <div class="modal-body">
+                    <div class="m-balance flex aic jcc gap-13">
+                        <div class="m-balance__tit">Balance:</div>
+                        <div class="m-balance__val flex aic gap-3">
+                            <div class="ico img"><img src="images/toncoin%402x.svg" alt=""></div>
+                            <div class="val" id="ton-balance-modal-buy">0</div>
+                        </div>
+                    </div>
+
+                    <div class="buy-food">
+    <div class="buy-food__list">
+        <button type="button" class="btn-null buy-food__btn card" id="buy-auto">
+            <div class="flex aic jcsb buy-food__inner">
+                <div class="buy-food__val">
+                    <div class="buy-food__img img">
+                        <img src="images/robot.png" alt="">
+                    </div>
+                    <div class="val" style="line-height: 14px">
+                        AUTO FEED
+                    </div>
+                </div>
+                <div class="secondary-btn">
+                    <div class="secondary-btn__inner flex aic gap-3">
+                        <img src="images/toncoin%402x.svg" alt="">
+                        �&nbsp;2
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null buy-food__btn card" id="buy-7-ton">
+            <div class="flex aic jcsb buy-food__inner">
+                <div class="buy-food__val">
+                    <div class="buy-food__img img">
+                        <img src="images/food-7.svg" alt="">
+                    </div>
+                    <div class="val" style="line-height: 14px">
+                        +1.4 TON <br>+10 $mASS
+                    </div>
+                </div>
+                <div class="secondary-btn">
+                    <div class="secondary-btn__inner flex aic gap-3">
+                        <img src="images/toncoin%402x.svg" alt="">
+                        �&nbsp;7
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null buy-food__btn card" id="buy-5-ton">
+            <div class="flex aic jcsb buy-food__inner">
+                <div class="buy-food__val">
+                    <div class="buy-food__img img">
+                        <img src="images/food-6.svg" alt="">
+                    </div>
+                    <div class="val" style="line-height: 14px">
+                        +1.25 TON <br>+3 $mASS
+                    </div>
+                </div>
+                <div class="secondary-btn">
+                    <div class="secondary-btn__inner flex aic gap-3">
+                        <img src="images/toncoin%402x.svg" alt="">
+                        �&nbsp;5
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null buy-food__btn card" id="buy-3-ton">
+            <div class="flex aic jcsb buy-food__inner">
+                <div class="buy-food__val">
+                    <div class="buy-food__img img">
+                        <img src="images/food-5.svg" alt="">
+                    </div>
+                    <div class="val" style="line-height: 14px">
+                        +1 TON <br>+1.5 $mASS
+                    </div>
+                </div>
+                <div class="secondary-btn">
+                    <div class="secondary-btn__inner flex aic gap-3">
+                        <img src="images/toncoin%402x.svg" alt="">
+                        �&nbsp;3
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null buy-food__btn card" id="buy-2-ton">
+            <div class="flex aic jcsb buy-food__inner">
+                <div class="buy-food__val">
+                    <div class="buy-food__img img">
+                        <img src="images/food-4.svg" alt="">
+                    </div>
+                    <div class="val" style="line-height: 14px">
+                        +0.75 TON <br>+1 $mASS
+                    </div>
+                </div>
+                <div class="secondary-btn">
+                    <div class="secondary-btn__inner flex aic gap-3">
+                        <img src="images/toncoin%402x.svg" alt="">
+                        �&nbsp;2
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null buy-food__btn card" id="buy-1-ton">
+            <div class="flex aic jcsb buy-food__inner">
+                <div class="buy-food__val">
+                    <div class="buy-food__img img">
+                        <img src="images/food-3.svg" alt="">
+                    </div>
+                    <div class="val" style="line-height: 14px">
+                        +0.5 TON <br>+0.5 $mASS
+                    </div>
+                </div>
+                <div class="secondary-btn">
+                    <div class="secondary-btn__inner flex aic gap-3">
+                        <img src="images/toncoin%402x.svg" alt="">
+                        �&nbsp;1
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null buy-food__btn card" id="buy-05-ton">
+            <div class="flex aic jcsb buy-food__inner">
+                <div class="buy-food__val">
+                    <div class="buy-food__img img">
+                        <img src="images/food-2.svg" alt="">
+                    </div>
+                    <div class="val" style="line-height: 14px">
+                        +0.25 TON <br>+0.25 $mASS
+                    </div>
+                </div>
+                <div class="secondary-btn">
+                    <div class="secondary-btn__inner flex aic gap-3">
+                        <img src="images/toncoin%402x.svg" alt="">
+                        �&nbsp;0.5
+                    </div>
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn-null buy-food__btn card" id="buy-01-ton">
+            <div class="flex aic jcsb buy-food__inner">
+                <div class="buy-food__val">
+                    <div class="buy-food__img img">
+                        <img src="images/food-1.svg" alt="">
+                    </div>
+                    <div class="val" style="line-height: 14px">
+                        +0.1 TON <br>+0.1 $mASS
+                    </div>
+                </div>
+                <div class="secondary-btn">
+                    <div class="secondary-btn__inner flex aic gap-3">
+                        <img src="images/toncoin%402x.svg" alt="">
+                        �&nbsp;0.1
+                    </div>
+                </div>
+            </div>
+        </button>
+    </div>
+</div>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--alert" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-inner">
+                <div class="modal-header">
+                    <div class="modal-header__row">
+                        <div class="modal-header__title">
+                            <h2>Error</h2>
+                        </div>
+
+                        <button type="button" class="close img-circle" data-dismiss="modal" aria-label="Close">
+                            <img src="images/modal-close.svg" alt="">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="m-balance flex aic jcc gap-13">
+                        <div class="m-balance__tit" id="alert-text">Balance:</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--token" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-header__row">
+                <div class="modal-header__title">
+                    <h2>Tokenomics</h2>
+                </div>
+
+                <button type="button" class="close img-circle" data-dismiss="modal" aria-label="Close">
+                    <img src="images/modal-close.svg" alt="">
+                </button>
+            </div>
+        </div>
+
+            <div class="modal-inner">
+                <div class="modal-body">
+                    <div style="line-height: 26px; padding: 0 20px;">
+                        15% - PlayToAirdrop<br>
+                        35% - Fairlaunch<br>
+                        15% - DEX Listing<br>
+                        7.5% - Farming<br>
+                        12.5% - For team<br>
+                        5% - Marketing<br>
+                        10% - CEX Listing<br><br>
+                        Don't miss our team head's first keynote to learn more about how we created the perfect model for all participants to earn a TON.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--boost" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <div class="modal-header__row">
+                <div class="modal-header__title">
+                    <h2>Info</h2>
+                </div>
+
+                <button type="button" class="close img-circle" data-dismiss="modal" aria-label="Close">
+                    <img src="images/modal-close.svg" alt="">
+                </button>
+            </div>
+        </div>
+
+            <div class="modal-inner">
+                <div class="modal-body">
+                    <div style="line-height: 26px; padding: 0 20px;">
+                        Imagine this: every purchase of cat food you make turns into a pile of TON`s and $mASS.<br>
+                        <br>
+                        Just feed your furry friend and when he goes to the litter box, collect your profit - the coins become yours!<br>
+                        <br>
+                        The game is currently in 2 PHASE, and we have 5 kinds of fodder<br>
+                        <br>
+                        0.1 TON = 0.2 TON<br>
+                        0.5 TON = 0.75 TON<br>
+                        1 TON = 1.5 TON<br>
+                        2 TON = 2.75 TON<br>
+                        3 TON = 4 TON<br>
+                        5 TON = 6.25 TON<br>
+                        <br>
+                        Invite your friends over and get mass together!<br>
+                        <br>
+                        For every new referral you get 0.05 $mASS, and if your friend makes a purchase, you'll get another 5 $mASS one-time.<br>
+                        <br>
+                        In addition, for every purchase made by your referrals, you'll earn multilevel rewards of 0.5% - 0.2%.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--fundraising" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div class="modal-header__row">
+                    <div class="modal-header__title">
+                        <h2>FairLaunch</h2>
+                    </div>
+
+                    <button type="button" class="close img-circle" data-dismiss="modal" aria-label="Close">
+                        <img src="images/modal-close.svg" alt="">
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-inner">
+
+                <div class="modal-body">
+                    <div class="m-balance flex aic jcc gap-13">
+                        <div class="m-balance__tit">Balance:</div>
+                        <div class="m-balance__val flex aic gap-3">
+                            <div class="ico img"><img src="images/toncoin%402x.svg" alt=""></div>
+                            <div class="val" id="ton-balance-modal-fair">0</div>
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="form__group mb-15">
+                            <div class="progress mb-15">
+                                <progress min="0" max="100" value="100"></progress>
+                            </div>
+                            <div class="flex aic jcsb">
+                                <label class="form__label primary-color medium-txt" id="fair-balance">0 TON</label>
+                                <label class="form__label primary-color medium-txt">∞ TON</label>
+                            </div>
+                        </div>
+
+                        <div class="form__group mb-15">
+                            <label class="form__label primary-color medium-txt" id="fair-amount-text">
+                                Amount TON:
+                            </label>
+                            <input type="text" class="form__control" id="fair-amount" value="0.1">
+                        </div>
+                        <button type="button" class="secondary-btn btn-large w-100" id="fair-button">
+                            <div class="secondary-btn__inner">Contribute</div>
+                        </button>
+                    </form>
+
+                    <div class="info mt-15 flex flex-col gap-13">
+                        <div class="flex flex-wrap aic jcsb">
+                            <div class="primary-color medium-txt secondary-family">Your Contribution</div>
+                            <div class="primary-color medium-txt secondary-family" id="user-contribution">0 TON</div>
+                        </div>
+                        <div class="flex flex-wrap aic jcsb">
+                            <div class="primary-color medium-txt secondary-family">Current Rate</div>
+                            <div class="primary-color medium-txt secondary-family" id="fair-rate">1 mASS = 0.00000001 TON</div>
+                        </div>
+                        <div class="flex flex-wrap aic jcsb">
+                            <div class="primary-color medium-txt secondary-family">Initial Market Cap</div>
+                            <div class="primary-color medium-txt secondary-family" id="market-cap">0 TON</div>
+                        </div>
+                        <div class="flex flex-wrap aic jcsb">
+                            <div class="primary-color medium-txt secondary-family">Total Contributors</div>
+                            <div class="primary-color medium-txt secondary-family" id="total-contributors">0</div>
+                        </div>
+                        <div class="flex flex-wrap aic jcsb">
+                            <div class="primary-color medium-txt secondary-family">Limit per user</div>
+                            <div class="primary-color medium-txt secondary-family">999 TON</div>
+                        </div>
+                        <div class="flex flex-wrap aic jcsb">
+                            <div class="primary-color medium-txt secondary-family">Total Supply</div>
+                            <div class="primary-color medium-txt secondary-family">100 000 000 $mASS</div>
+                        </div>
+                        <div class="flex flex-wrap aic jcsb">
+                            <div class="primary-color medium-txt secondary-family">Tokens For Presale</div>
+                            <div class="primary-color medium-txt secondary-family">35 000 000 $mASS</div>
+                        </div>
+                        <div class="flex flex-wrap aic jcsb">
+                            <div class="primary-color medium-txt secondary-family">Tokens For Liquidity</div>
+                            <div class="primary-color medium-txt secondary-family">15 000 000 $mASS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup">
+    <div class="popup__inner">
+        <div class="popup__txt">
+            <h3 id="popup-title"></h3>
+            <p id="popup-text"></p>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    /*.modal-header{*/
+    /*    position: relative;*/
+    /*}*/
+
+    .modal-inner {
+        padding: 30px 10px 0;
+    }
+
+    .send-tx .balance-add__coin {
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .send-tx .balance-add__inner {
+        padding: 20px 0;
+    }
+
+    .send-tx .balance-add__info {
+        margin-bottom: 20px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .send-tx .balance-add__price {
+        margin-bottom: 0;
+    }
+
+    .s-enter-active { z-index: 999999999; }
+
+    .connected_wallet {
+        font-size: 10px;
+        background: #642F29;
+        padding: 15px;
+        border-radius: 15px;
+        color: #FFF0C6;
+        text-align: center;
+    }
+
+    .menu__link img {
+        max-width: 20px;
+        max-height: 18px;
+    }
+
+    .menu__link {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        gap: 4px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 10px;
+        font-family: "Roboto", sans-serif;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        padding-bottom: 2px;
+    }
+
+    .secondary-btn__inner {
+        width: 100%;
+    }
+
+    .btn-large .secondary-btn__inner {
+        min-height: 50px;
+    }
+
+    .primary-color {
+        color: #642f29;
+    }
+
+    .form__control:active,
+    .form__control:focus,
+    .form__control:hover {
+        border: 1px solid #642f29;
+    }
+
+    .form__control{
+        font-family: "Roboto", sans-serif;
+        font-size: 13px;
+    }
+
+    .popup {
+        z-index: 99999;
+        left: 0;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .popup.popup--show {
+        bottom: 10px;
+    }
+
+    .popup__inner {
+        background: #642F29;
+        border: 2px solid #FFF0C6;
+        border-radius: 15px;
+        padding: 15px;
+
+        position: relative;
+    }
+
+    .popup__txt {
+        padding-right: 45px;
+    }
+
+    .popup__txt h3 {
+        font-size: 10px;
+        margin-bottom: 5px;
+        color: #fff;
+    }
+
+    .popup__txt p {
+        color: #FFF0C6;
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+    }
+
+    .gradient-silver {
+        background: -webkit-gradient(linear, left top, right top, color-stop(0, #ECF2FF), to(#B1C4F4));
+        background: -o-linear-gradient(left, #ECF2FF 0, #B1C4F4 100%);
+        background: linear-gradient(90deg, #ECF2FF 0, #B1C4F4 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .secondary-btn__inner {
+        width: 100%;
+    }
+
+    .cat {
+        margin-bottom: 25px;
+    }
+
+    .cat__bg {
+        margin-top: -15px;
+    }
+
+    .cat__img {
+        position: relative;
+        z-index: 2;
+        -webkit-animation: catAnim linear infinite;
+        animation: catAnim cubic-bezier(0.6, 0.17, 0.65, 0.88) infinite 2.5s;
+
+        -webkit-animation-direction: alternate;
+
+        animation-direction: alternate;
+    }
+
+    .cat__img img{
+        width: 70%;
+    }
+
+    @-webkit-keyframes catAnim {
+        0% {
+
+            -webkit-transform: translate(10px, 0);
+
+            transform: translate(10px, 0)
+        }
+
+        50% {
+            -webkit-transform: translate(-40px, 0);
+            transform: translate(-40px, 0)
+        }
+
+        100% {
+
+            -webkit-transform: translate(10px, 0);
+
+            transform: translate(10px, 0)
+        }
+    }
+
+    @keyframes catAnim {
+        0% {
+
+            -webkit-transform: translate(10px, 0);
+
+            transform: translate(10px, 0)
+        }
+
+        50% {
+            -webkit-transform: translate(-40px, 0);
+            transform: translate(-40px, 0)
+        }
+
+        100% {
+
+            -webkit-transform: translate(10px, 0);
+
+            transform: translate(10px, 0)
+        }
+    }
+
+    .rank{
+        z-index: 5;
+    }
+    .header__middle{
+        z-index: auto;
+    }
+    .h-stat__side{
+        z-index: 4;
+    }
+
+    .menu__link .pulse {
+        position: absolute;
+        top: 0;
+        right: 12px;
+    }
+
+    .pulse {
+        background: #da4646;
+        border-radius: 50%;
+        height: 8px;
+        width: 8px;
+
+        -webkit-box-shadow: 0 0 0 0 rgb(218 70 70 / 70%);
+
+        box-shadow: 0 0 0 0 rgb(218 70 70 / 70%);
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation: pulse 2s infinite;
+        animation: pulse 2s infinite;
+    }
+
+    @-webkit-keyframes pulse {
+        0% {
+            -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+            -webkit-box-shadow: 0 0 0 0 rgb(218 70 70 / 70%);
+            box-shadow: 0 0 0 0 rgb(218 70 70 / 70%);
+        }
+
+        70% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            -webkit-box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+        }
+
+        100% {
+            -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+            -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+            -webkit-box-shadow: 0 0 0 0 rgb(218 70 70 / 70%);
+            box-shadow: 0 0 0 0 rgb(218 70 70 / 70%);
+        }
+
+        70% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            -webkit-box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+        }
+
+        100% {
+            -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+            -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        }
+    }
+
+    .info {
+        border: 2px solid #642F29;
+        border-radius: 15px;
+        padding: 15px;
+    }
+
+    .mt-15 {
+        margin-top: 15px;
+    }
+</style>
+
+</body></html>
