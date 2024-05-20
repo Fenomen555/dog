@@ -18,26 +18,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            padding: 20px;
         }
         .header, .footer {
             display: flex;
             justify-content: space-around;
             width: 100%;
-            padding: 10px;
         }
-        .header {
-            margin-bottom: 20px;
-        }
-        .footer {
-            margin-top: 20px;
-        }
-        .header div, .footer div {
+        .header button, .footer button {
             background: rgba(255, 255, 255, 0.8);
             border: 1px solid #000;
             padding: 10px;
             text-align: center;
             cursor: pointer;
+            font-size: 16px;
         }
         .main-content {
             text-align: center;
@@ -45,30 +40,31 @@
             padding: 20px;
             border: 1px solid #000;
         }
-        .main-content img {
-            max-width: 100%;
-            height: auto;
-        }
     </style>
 </head>
 <body>
     <div class="background">
         <div class="header">
-            <div>Баланс TON</div>
-            <div>Название игры</div>
-            <div>Баланс токена проекта</div>
+            <button onclick="showMessage()">Баланс TON</button>
+            <button onclick="showMessage()">Название игры</button>
+            <button onclick="showMessage()">Баланс токена проекта</button>
         </div>
         <div class="main-content">
             <h1>Щенок</h1>
         </div>
         <div class="footer">
-            <div>Магазин</div>
-            <div>Мой профиль</div>
-            <div>Инфо</div>
-            <div>Мои рефералы</div>
-            <div>Топ</div>
-            <div>Колесо фортуны</div>
+            <button onclick="showMessage()">Магазин</button>
+            <button onclick="showMessage()">Мой профиль</button>
+            <button onclick="showMessage()">Инфо</button>
+            <button onclick="showMessage()">Мои рефералы</button>
+            <button onclick="showMessage()">Топ</button>
+            <button onclick="showMessage()">Колесо фортуны</button>
         </div>
     </div>
+    <script>
+        function showMessage() {
+            alert('Функционал в разработке');
+        }
+    </script>
 </body>
 </html>
