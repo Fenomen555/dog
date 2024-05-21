@@ -12,11 +12,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .background {
             background-image: url('8.jpg');
             background-size: cover;
             background-position: center;
-        }
-        .container {
             height: 750px;
             width: 500px;
             display: flex;
@@ -25,8 +25,6 @@
             justify-content: space-between;
             padding: 20px;
             box-sizing: border-box;
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px solid #000;
         }
         .header, .footer {
             display: flex;
@@ -51,6 +49,7 @@
         }
         .main-content {
             text-align: center;
+            background: rgba(255, 255, 255, 0.8);
             padding: 10px;
             border: 1px solid #000;
             margin-bottom: 20px;
@@ -67,7 +66,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="background">
         <div class="header">
             <button onclick="showMessage()">Баланс TON</button>
             <div class="title">Dog TON</div>
